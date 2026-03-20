@@ -36,7 +36,7 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
   const pastLives = person.relationshipsAsObject.filter(r => r.type === "PAST_LIFE_OF").map(r => r.subject);
   const futureLives = person.relationshipsAsSubject.filter(r => r.type === "PAST_LIFE_OF").map(r => r.object);
 
-  const renderNode = (p: any, role: string) => (
+  const renderNode = (p: { id: string, name: string, type: string }, role: string) => (
     <Link href={`/tree/${p.id}`} key={p.id} className="tree-node" prefetch={false}>
       <div className="node-role">{role}</div>
       <div className="node-name">{p.name}</div>

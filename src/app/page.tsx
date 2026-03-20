@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, TreeDeciduous, Users, Sparkles } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -55,7 +54,7 @@ export default async function Home() {
               <p>Easily map multiple spouses, adoptive parents, and extended Indian families including Gotra and Caste details.</p>
               {rama && (
                 <Link href={`/tree/${rama.id}`} className="btn-secondary" style={{ marginTop: '1.5rem', padding: '8px 20px', fontSize: '0.875rem' }} prefetch={false}>
-                  Explore Rama's Tree
+                  Explore Rama&apos;s Tree
                 </Link>
               )}
             </div>

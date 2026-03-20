@@ -19,7 +19,15 @@ export async function GET(
   }
 }
 
-async function fetchLineage(id: string, depth: number, currentDepth = 0): Promise<any> {
+interface LineageNode {
+  id: string;
+  name: string;
+  type: string;
+  children?: LineageNode[];
+  [key: string]: any;
+}
+
+async function fetchLineage(id: string, depth: number, currentDepth = 0): Promise<LineageNode | null> {
   if (currentDepth >= depth) return null;
 
   const person = await prisma.person.findUnique({
@@ -47,7 +55,7 @@ async function fetchLineage(id: string, depth: number, currentDepth = 0): Promis
     children.push({
       ...rel.object,
       relationshipType: rel.type,
-      lineage: childNode?.children || []
+      children: childNode?.children || []
     });
   }
 
