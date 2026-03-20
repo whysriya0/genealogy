@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
-  const router = useRouter();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -58,7 +57,7 @@ export default function Dashboard() {
       } else {
         setMessage('Failed to add person. Please try again.');
       }
-    } catch (error) {
+    } catch (_error) {
       setMessage('An error occurred.');
     } finally {
       setIsSubmitting(false);
