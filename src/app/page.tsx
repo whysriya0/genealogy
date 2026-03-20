@@ -44,7 +44,7 @@ export default async function Home() {
       </header>
 
       {/* Search Bar Section */}
-      <section className={styles.searchSection}>
+      <section className={`${styles.searchSection} traditional-section`}>
         <div className="container">
           <ScrollReveal>
             <div className={`${styles.searchBox} glass-panel`}>
@@ -111,7 +111,7 @@ export default async function Home() {
       </section>
 
       {/* Divine Heritage Section */}
-      <section className={styles.heritageSection}>
+      <section className={`${styles.heritageSection} traditional-section`}>
         <div className="container">
           <div className={styles.splitContent}>
             <ScrollReveal className={styles.textContent}>
