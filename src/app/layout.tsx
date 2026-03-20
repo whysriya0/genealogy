@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import AuthProvider from '@/components/AuthProvider';
+import Chatbot from '@/components/Chatbot';
 
 export const metadata: Metadata = {
   title: 'Vamsha - The Indian Genealogy Portal',
@@ -15,9 +16,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="bg-pattern" />
+        <div className="cosmic-layer">
+          <div className="cosmic-nebula" />
+          <div className="bg-pattern" />
+        </div>
         <AuthProvider>
           {children}
+          <Chatbot />
         </AuthProvider>
       </body>
     </html>

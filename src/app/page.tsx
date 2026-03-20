@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, TreeDeciduous, Users, Sparkles } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import ScrollReveal from '@/components/ScrollReveal';
 import styles from './page.module.css';
 import { prisma } from '@/lib/prisma';
 
@@ -15,7 +16,7 @@ export default async function Home() {
 
       <header className={styles.hero}>
         <div className="container">
-          <div className={`${styles.heroContent} animate-fade-in`}>
+          <ScrollReveal className={`${styles.heroContent} animate-fade-in`}>
             <div className={styles.badge}>
               <Sparkles size={16} /> Beta Release
             </div>
@@ -33,20 +34,41 @@ export default async function Home() {
                 Explore Directory
               </Link>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
         
-        {/* Decorative elements representing heritage/connections */}
         <div className={styles.heroBlobs}>
           <div className={styles.blob1}></div>
           <div className={styles.blob2}></div>
         </div>
       </header>
 
-      <section className={styles.featuresSection}>
+      {/* Search Bar Section */}
+      <section className={styles.searchSection}>
         <div className="container">
+          <ScrollReveal>
+            <div className={`${styles.searchBox} glass-panel`}>
+              <h2>Search Your Roots</h2>
+              <div className={styles.searchFields}>
+                <input type="text" placeholder="Gothra (e.g., Vashistha)" />
+                <input type="text" placeholder="Region (e.g., Andhra Pradesh)" />
+                <button className="btn-primary">Search Directory</button>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className={styles.featuresSection} id="features">
+        <div className="container">
+          <ScrollReveal className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Ancient Roots, Modern Tech</h2>
+            <p>Advanced tools for the modern Indian family historian.</p>
+          </ScrollReveal>
+          
           <div className={styles.featuresGrid}>
-            <div className={`${styles.featureCard} glass-panel`}>
+            <ScrollReveal className={`${styles.featureCard} glass-panel`} delay={100}>
               <div className={styles.featureIcon}>
                 <Users size={28} />
               </div>
@@ -57,8 +79,9 @@ export default async function Home() {
                   Explore Rama&apos;s Tree
                 </Link>
               )}
-            </div>
-            <div className={`${styles.featureCard} glass-panel`} style={{animationDelay: '0.2s'}}>
+            </ScrollReveal>
+
+            <ScrollReveal className={`${styles.featureCard} glass-panel`} delay={200}>
               <div className={styles.featureIcon}>
                 <Sparkles size={28} />
               </div>
@@ -69,8 +92,9 @@ export default async function Home() {
                   Explore Divine Tree
                 </Link>
               )}
-            </div>
-            <div className={`${styles.featureCard} glass-panel`} style={{animationDelay: '0.4s'}}>
+            </ScrollReveal>
+
+            <ScrollReveal className={`${styles.featureCard} glass-panel`} delay={300}>
               <div className={styles.featureIcon}>
                 <TreeDeciduous size={28} />
               </div>
@@ -81,10 +105,40 @@ export default async function Home() {
                   Explore Parampara
                 </Link>
               )}
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
+
+      {/* Divine Heritage Section */}
+      <section className={styles.heritageSection}>
+        <div className="container">
+          <div className={styles.splitContent}>
+            <ScrollReveal className={styles.textContent}>
+              <h2>Tracing the Parampara</h2>
+              <p>From the first Rishis to the modern era, the Vamsha project is dedicated to documenting every strand of Indian heritage.</p>
+              <ul className={styles.featureList}>
+                <li>3000+ Recorded Lineages</li>
+                <li>Gothra-based Mapping</li>
+                <li>Regional Cultural Context</li>
+              </ul>
+              <Link href="/explore" className="btn-primary">Get Started</Link>
+            </ScrollReveal>
+            <ScrollReveal className={styles.visualContent} delay={200}>
+              <div className={styles.visualPlaceholder}>
+                <div className={styles.glowCircle} />
+                <TreeDeciduous size={120} className={styles.floatingIcon} />
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      <footer className={styles.footer}>
+        <div className="container">
+          <p>© 2026 Vamsha: Indian Genealogy Portal. All rights reserved.</p>
+        </div>
+      </footer>
     </main>
   );
 }

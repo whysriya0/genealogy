@@ -178,3 +178,140 @@
   font-size: 1rem;
   line-height: 1.6;
 }
+.searchSection {
+  padding: 4rem 0 6rem;
+  position: relative;
+  z-index: 20;
+}
+
+.searchBox {
+  padding: 3rem;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.searchBox h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.searchFields {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.searchFields input {
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-main);
+  min-width: 250px;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.heritageSection {
+  padding: 10rem 0;
+  position: relative;
+}
+
+.splitContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.textContent h2 {
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+}
+
+.textContent p {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.featureList {
+  list-style: none;
+  margin-bottom: 3rem;
+}
+
+.featureList li {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.featureList li::before {
+  content: "•";
+  color: var(--color-primary);
+  font-size: 1.5rem;
+}
+
+.visualContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.visualPlaceholder {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.glowCircle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--color-secondary), 0.2) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
+.floatingIcon {
+  color: var(--color-primary);
+  z-index: 2;
+  filter: drop-shadow(0 0 20px rgba(var(--color-primary), 0.3));
+}
+
+.footer {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  color: var(--color-text-muted);
+  background: rgba(var(--color-bg), 0.5);
+}
+
+@media (max-width: 768px) {
+  .heroTitle { font-size: 3rem; }
+  .splitContent { grid-template-columns: 1fr; text-align: center; }
+  .featureList li { justify-content: center; }
+  .searchFields input { width: 100%; }
+}
