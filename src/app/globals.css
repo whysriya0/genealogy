@@ -188,11 +188,34 @@ button {
 
 .traditional-section {
   position: relative;
-  background-color: rgba(255, 179, 0, 0.05); /* Subtle gold tint */
+  background-color: rgba(255, 179, 0, 0.05);
   background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 10 C70 30 90 30 110 60 C90 90 70 90 60 110 C50 90 30 90 10 60 C30 30 50 30 60 10' fill='none' stroke='%23D32F2F' stroke-width='1' stroke-opacity='0.2'/%3E%3Cpath d='M60 40 A20 20 0 1 0 60 80 A20 20 0 1 0 60 40' fill='none' stroke='%23FFB300' stroke-width='1' stroke-opacity='0.2'/%3E%3C/svg%3E");
   background-size: 120px 120px;
-  border-top: 1px solid rgba(var(--color-secondary), 0.1);
-  border-bottom: 1px solid rgba(var(--color-secondary), 0.1);
+  /* Smooth merging masks */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+/* Optional: Soften the borders further with an overlay */
+.traditional-section::before,
+.traditional-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.traditional-section::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--color-bg), transparent);
+}
+
+.traditional-section::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--color-bg), transparent);
 }
 
 /* Animations */
