@@ -144,18 +144,19 @@ button {
 
 /* Premium Card Effects */
 .glass-panel {
-  background: rgba(var(--color-surface), 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(var(--color-border), 0.3);
+  background: linear-gradient(135deg, rgba(var(--color-surface), 0.95) 0%, rgba(var(--color-bg), 0.7) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06), inset 0 2px 20px rgba(212, 175, 55, 0.05);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Background Utilities */
 .parchment-bg {
-  background-color: var(--color-bg);
+  background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, var(--color-bg) 60%, rgba(212, 175, 55, 0.05) 100%);
   transition: background 0.5s ease;
   position: relative;
   min-height: 100vh;

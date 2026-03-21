@@ -23,8 +23,8 @@ export default async function Home() {
             <div className={styles.badge}>
               <Sparkles size={16} /> Beta Release
             </div>
-            <h1 className={styles.heroTitle} style={{ fontFamily: 'var(--font-display)', color: 'var(--color-accent)' }}>
-              वंशवृक्ष <br />
+            <h1 className={styles.heroTitle} style={{ fontFamily: 'var(--font-display)' }}>
+              <span className={styles.gradientText}>वंशवृक्ष</span> <br />
               <span style={{ fontSize: '0.6em', color: 'var(--color-text-main)' }}>The Living Heritage of Lineages</span>
             </h1>
             <div className={styles.heroDivider}>
@@ -75,8 +75,8 @@ export default async function Home() {
       <section className={`${styles.featuresSection} border-rangoli-top border-rangoli-bottom`} id="features">
         <div className="container">
           <ScrollReveal className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle} style={{ color: 'var(--color-accent)' }}>Bridging Heritage & Technology</h2>
-            <p>Advanced tools for the modern Indian family historian.</p>
+            <h2 className={`${styles.sectionTitle} ${styles.gradientText}`}>Bridging Heritage & Technology</h2>
+            <p style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)', marginTop: '1rem' }}>Advanced tools for the modern Indian family historian.</p>
           </ScrollReveal>
           
           <div className={styles.featuresGrid}>
