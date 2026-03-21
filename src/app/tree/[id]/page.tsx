@@ -58,6 +58,14 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
     return notFound();
   }
 
+  // Next.js Server Components cannot pass Date objects to Client Components.
+  // We must sanitize the Prisma output.
+  const sanitizePerson = (p: any) => ({
+    name: p.name,
+    type: p.type,
+    description: p.description,
+  });
+
   // Define Nodes Array
   const rawNodes: any[] = [];
   const rawEdges: any[] = [];
@@ -65,14 +73,14 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
   rawNodes.push({
     id: person.id,
     type: 'entity',
-    data: { ...person, tags: ["Subject"] },
+    data: { ...sanitizePerson(person), tags: ["Subject"] },
   });
 
   // Map Parents (Object = Parent, Subject = Me)
   // Wait, if I am the object, subject is the parent
   const parentRels = person.relationshipsAsObject.filter(r => r.type === "PARENT_OF");
   parentRels.forEach(rel => {
-    rawNodes.push({ id: rel.subject.id, type: 'entity', data: { ...rel.subject } });
+    rawNodes.push({ id: rel.subject.id, type: 'entity', data: { ...sanitizePerson(rel.subject) } });
     rawEdges.push({
       id: `e-${rel.subject.id}-${person.id}`,
       source: rel.subject.id,
@@ -86,7 +94,7 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
   // Map Children (Subject = Me, Object = Child)
   const childRels = person.relationshipsAsSubject.filter(r => r.type === "PARENT_OF");
   childRels.forEach(rel => {
-    rawNodes.push({ id: rel.object.id, type: 'entity', data: { ...rel.object } });
+    rawNodes.push({ id: rel.object.id, type: 'entity', data: { ...sanitizePerson(rel.object) } });
     rawEdges.push({
       id: `e-${person.id}-${rel.object.id}`,
       source: person.id,
@@ -104,7 +112,7 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
   ];
   
   spouseRels.forEach(({ spouse, rel, isSource }) => {
-    rawNodes.push({ id: spouse.id, type: 'entity', data: { ...spouse } });
+    rawNodes.push({ id: spouse.id, type: 'entity', data: { ...sanitizePerson(spouse) } });
     rawEdges.push({
       id: `e-${rel.id}`,
       source: isSource ? person.id : spouse.id,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import {
   ReactFlow,
   useNodesState,
@@ -68,11 +68,24 @@ interface LineageGraphProps {
 
 export default function LineageGraphWrapper(props: LineageGraphProps) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const onNodeClick = React.useCallback((event: any, node: any) => {
     // Navigate to the focus node to explore its lineage deeper
     router.push(`/tree/${node.id}`);
   }, [router]);
+
+  if (!mounted) {
+    return (
+      <div style={{ width: '100%', height: '100%', minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
+         <div style={{ opacity: 0.5, color: 'var(--color-primary-dark)' }}>Initializing Lineage Canvas...</div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: '100%', height: '100%', minHeight: '85vh', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
