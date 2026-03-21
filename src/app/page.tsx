@@ -48,6 +48,42 @@ export default async function Home() {
               {/* Note: The image blends beautifully with a dark background or container behind it */}
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: '50%', background: 'radial-gradient(circle, rgba(10, 14, 26, 0.8) 0%, transparent 70%)', zIndex: -1, pointerEvents: 'none' }}></div>
               <img src="/banyan_tree_centerpiece.png" alt="Sacred Banyan Tree Illustration" className={styles.centerpieceImage} />
+              
+              {/* Family Tree Nodes Hook */}
+              <div className={`${styles.hookNode} ${styles.nodeTop}`}>
+                <div className={styles.nodeImage}>ॐ</div>
+                <div className={styles.nodeInfo}>
+                  <span className={styles.nodeName}>Lord Shiva</span>
+                  <span className={styles.nodeTag}>The Destroyer</span>
+                </div>
+              </div>
+              
+              <div className={`${styles.hookNode} ${styles.nodeLeft}`}>
+                <div className={styles.nodeImage}>✨</div>
+                <div className={styles.nodeInfo}>
+                  <span className={styles.nodeName}>Lord Ganesha</span>
+                  <span className={styles.nodeTag}>Remover of Obstacles</span>
+                </div>
+              </div>
+
+              <div className={`${styles.hookNode} ${styles.nodeRight}`}>
+                <div className={styles.nodeImage}>🔱</div>
+                <div className={styles.nodeInfo}>
+                  <span className={styles.nodeName}>Lord Kartikeya</span>
+                  <span className={styles.nodeTag}>God of War</span>
+                </div>
+              </div>
+
+              {/* Connecting Tree Lines */}
+              <svg className={styles.hookLines} viewBox="0 0 100 100" preserveAspectRatio="none">
+                 <path d="M50 20 L15 75 M50 20 L95 65" stroke="url(#goldGradient)" strokeWidth="0.5" fill="none" className={styles.animatedLine} />
+                 <defs>
+                   <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                     <stop offset="0%" stopColor="#FFD700" />
+                     <stop offset="100%" stopColor="#FF9933" />
+                   </linearGradient>
+                 </defs>
+              </svg>
             </div>
           </ScrollReveal>
         </div>
