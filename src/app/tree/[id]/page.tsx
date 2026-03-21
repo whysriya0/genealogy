@@ -183,7 +183,6 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
         source: groupId,
         target: rel.object.id,
         type: 'emergence',
-        data: { label: 'Avatar' },
       });
     });
   }
