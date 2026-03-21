@@ -46,8 +46,28 @@ const DIVINE_CATEGORIES = [
 
 export default function ExplorePage() {
   const [persons, setPersons] = useState<any[]>([]);
+  const [godMap, setGodMap] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Fetch all gods once on mount to map explicit IDs for tile linking
+  useEffect(() => {
+    fetch('/api/search?type=GOD')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const map: Record<string, string> = {};
+          data.forEach(p => {
+            map[p.name] = p.id;
+            if (p.name.includes('Shiva')) map['Shiva'] = p.id;
+            if (p.name.includes('Vishnu')) map['Vishnu'] = p.id;
+            if (p.name.includes('Rama')) map['Rama'] = p.id;
+          });
+          setGodMap(map);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const fetchResults = async () => {
     if (!searchQuery.trim()) {
@@ -80,24 +100,25 @@ export default function ExplorePage() {
       <Navbar />
 
       <div className="container" style={{ padding: '4rem 24px', flex: 1, position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '2rem', marginBottom: '4rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '2.5rem', marginBottom: '5rem' }}>
           <div>
-            <h1 style={{ fontSize: '4rem', marginBottom: '0.5rem', fontFamily: 'var(--font-display)', color: 'var(--color-primary-dark)' }}>
+            <h1 style={{ fontSize: '4rem', marginBottom: '1rem', fontFamily: 'var(--font-display)', color: 'var(--color-primary-dark)' }}>
               Explore Divine Lineages
             </h1>
-            <p style={{ fontSize: '1.25rem', color: 'var(--color-text-main)', maxWidth: '600px', opacity: 0.8 }}>
-              Navigate through the sacred families of gods, avatars, and mythological beings.
+            <p style={{ fontSize: '1.25rem', color: 'var(--color-text-main)', maxWidth: '700px', margin: '0 auto', opacity: 0.8, lineHeight: 1.6 }}>
+              Navigate through the sacred families of gods, avatars, and mythological beings. Discover the ancient roots of eternal heritage.
             </p>
           </div>
           
-          <div style={{ position: 'relative', width: '100%', maxWidth: '350px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '500px' }}>
             <Search style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-secondary)' }} size={20} />
             <input 
               type="text" 
-              placeholder="Search specific deities or eras..." 
+              placeholder="Search specific deities..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-minimal"
+              style={{ padding: '16px 24px 16px 52px', fontSize: '1.1rem', maxWidth: 'none' }}
             />
           </div>
         </div>
@@ -140,21 +161,36 @@ export default function ExplorePage() {
           // Immersive Curated Gallery View
           <>
             <section style={{ marginBottom: '6rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
-                {FEATURED_PORTALS.map((portal, idx) => (
-                  <ScrollReveal key={portal.name} delay={idx * 150}>
-                    <div 
-                       onClick={() => setSearchQuery(portal.query)}
-                       className="card-horizontal-portal"
-                       style={{ cursor: 'pointer' }}
-                    >
-                      <div>
-                        <h3 style={{ fontSize: '1.75rem', fontFamily: 'var(--font-display)', color: 'var(--color-primary-dark)', marginBottom: '0.5rem' }}>{portal.name}</h3>
-                        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>{portal.desc}</p>
-                      </div>
-                    </div>
-                  </ScrollReveal>
-                ))}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2.5rem' }}>
+                {FEATURED_PORTALS.map((portal, idx) => {
+                  const targetUrl = godMap[portal.query] ? `/tree/${godMap[portal.query]}` : null;
+                  
+                  return (
+                    <ScrollReveal key={portal.name} delay={idx * 150}>
+                      {targetUrl ? (
+                        <Link href={targetUrl} style={{ textDecoration: 'none' }}>
+                          <div className="card-horizontal-portal" style={{ cursor: 'pointer', height: '100%' }}>
+                            <div>
+                              <h3 style={{ fontSize: '1.75rem', fontFamily: 'var(--font-display)', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}>{portal.name}</h3>
+                              <p style={{ color: 'var(--color-text-muted)', fontSize: '1rem', lineHeight: 1.6 }}>{portal.desc}</p>
+                            </div>
+                          </div>
+                        </Link>
+                      ) : (
+                        <div 
+                           onClick={() => setSearchQuery(portal.query)}
+                           className="card-horizontal-portal"
+                           style={{ cursor: 'pointer', height: '100%' }}
+                        >
+                          <div>
+                            <h3 style={{ fontSize: '1.75rem', fontFamily: 'var(--font-display)', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}>{portal.name}</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: '1rem', lineHeight: 1.6 }}>{portal.desc}</p>
+                          </div>
+                        </div>
+                      )}
+                    </ScrollReveal>
+                  );
+                })}
               </div>
             </section>
 
@@ -167,25 +203,37 @@ export default function ExplorePage() {
                   {category.title}
                 </h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem 2rem' }}>
-                  {category.items.map((item, itemIdx) => (
-                    <ScrollReveal key={item.name} delay={itemIdx * 100}>
-                      <div 
-                         onClick={() => setSearchQuery(item.query)}
-                         className="card-arch"
-                         style={{ cursor: 'pointer' }}
-                      >
+                  {category.items.map((item, itemIdx) => {
+                    const targetUrl = godMap[item.name] || godMap[item.query] ? `/tree/${godMap[item.name] || godMap[item.query]}` : null;
+                    
+                    const CardContent = () => (
+                      <div className="card-arch" style={{ cursor: 'pointer', height: '100%' }}>
                         <div style={{ width: '100px', height: '100px', borderRadius: '50%', background: 'rgba(212, 175, 55, 0.1)', border: '2px dotted var(--color-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--color-secondary)', boxShadow: 'inset 0 0 15px rgba(255,153,51,0.2)' }}>
                            <span style={{ fontSize: '2.5rem', fontFamily: 'var(--font-display)' }}>ॐ</span>
                         </div>
-                        <h3 style={{ fontSize: '2.25rem', marginBottom: '0.25rem', fontFamily: 'var(--font-display)', color: 'var(--color-text-main)' }}>{item.name}</h3>
-                        <p style={{ color: 'var(--color-primary-dark)', fontSize: '1rem', fontWeight: 600, letterSpacing: '0.5px' }}>{item.tagline}</p>
+                        <h3 style={{ fontSize: '2.25rem', marginBottom: '0.5rem', fontFamily: 'var(--font-display)', color: 'var(--color-text-main)' }}>{item.name}</h3>
+                        <p style={{ color: 'var(--color-primary-dark)', fontSize: '1rem', fontWeight: 600, letterSpacing: '0.5px', marginBottom: '1rem' }}>{item.tagline}</p>
                         
-                        <div className="hover-reveal">
-                          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Click to reveal lineage</p>
+                        <div className="hover-reveal" style={{ marginTop: 'auto' }}>
+                          <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', fontWeight: 500 }}>{targetUrl ? "Click to view lineage tree" : "Click to view search results"}</p>
                         </div>
                       </div>
-                    </ScrollReveal>
-                  ))}
+                    );
+
+                    return (
+                      <ScrollReveal key={item.name} delay={itemIdx * 100}>
+                        {targetUrl ? (
+                          <Link href={targetUrl} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+                            <CardContent />
+                          </Link>
+                        ) : (
+                          <div onClick={() => setSearchQuery(item.query)} style={{ height: '100%' }}>
+                            <CardContent />
+                          </div>
+                        )}
+                      </ScrollReveal>
+                    );
+                  })}
                 </div>
               </section>
             ))}
