@@ -322,4 +322,151 @@ button {
   margin: 0 auto;
   padding: 0 24px;
 }
+
+/* Temple Gallery & Explore Page Styles */
+.floating-dust {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(circle, rgba(212, 175, 55, 0.15) 2px, transparent 2px),
+    radial-gradient(circle, rgba(255, 153, 51, 0.08) 3px, transparent 3px);
+  background-size: 150px 150px, 200px 200px;
+  background-position: 0 0, 75px 75px;
+  animation: floatDust 40s linear infinite;
+}
+
+@keyframes floatDust {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-500px); }
+}
+
+.search-minimal {
+  padding: 12px 24px 12px 48px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  background-color: rgba(var(--color-surface), 0.5);
+  backdrop-filter: blur(8px);
+  color: var(--color-text-main);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 400px;
+  font-size: 1rem;
+}
+
+.search-minimal:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(255, 153, 51, 0.2);
+  background-color: var(--color-surface);
+}
+
+.card-horizontal-portal {
+  background: linear-gradient(135deg, rgba(var(--color-surface), 0.95), rgba(var(--color-bg), 1));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-horizontal-portal:hover {
+  transform: translateX(10px);
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2), inset 0 0 20px rgba(255, 153, 51, 0.05);
+  border-color: var(--color-primary);
+}
+
+.card-horizontal-portal::after {
+  content: "→";
+  position: absolute;
+  right: 2rem;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--color-secondary);
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-horizontal-portal:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.card-arch {
+  background: linear-gradient(135deg, rgba(var(--color-surface), 0.9), rgba(212, 175, 55, 0.05));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 140px 140px 12px 12px;
+  padding: 3rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-arch::before {
+  content: "";
+  position: absolute;
+  top: 8px; left: 8px; right: 8px; bottom: 8px;
+  border: 1px dashed rgba(212, 175, 55, 0.25);
+  border-radius: 130px 130px 6px 6px;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.card-arch:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15), inset 0 0 30px rgba(255, 153, 51, 0.1);
+  border-color: var(--color-primary);
+}
+
+.card-arch:hover::before {
+  border-color: rgba(212, 175, 55, 0.6);
+  border-width: 2px;
+}
+
+.card-arch .hover-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  height: 0;
+  overflow: hidden;
+}
+
+.card-arch:hover .hover-reveal {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  margin-top: 1rem;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem 0 3rem;
+  gap: 1.5rem;
+  opacity: 0.8;
+}
+
+.section-divider::before, .section-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(to right, transparent, var(--color-secondary), transparent);
+}
 }
