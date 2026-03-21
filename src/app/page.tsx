@@ -27,6 +27,9 @@ export default async function Home() {
               वंशवृक्ष <br />
               <span style={{ fontSize: '0.6em', color: 'var(--color-text-main)' }}>The Living Heritage of Lineages</span>
             </h1>
+            <div className={styles.heroDivider}>
+               <span className={styles.heroDividerIcon}>✺</span>
+            </div>
             <p className={styles.heroSubtitle}>
               From gods to generations — build, explore, and preserve your lineage through the sacred parampara of India.
             </p>

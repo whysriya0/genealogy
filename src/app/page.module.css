@@ -166,9 +166,30 @@
 }
 
 .heroTitle {
-  font-size: 4.5rem;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.heroDivider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem;
+  max-width: 85%;
+  opacity: 0.85;
+}
+
+.heroDivider::before, .heroDivider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(to right, transparent, var(--color-secondary), transparent);
+}
+
+.heroDividerIcon {
+  color: var(--color-primary);
+  font-size: 1.25rem;
 }
 
 .gradientText {
