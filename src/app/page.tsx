@@ -137,9 +137,44 @@ export default async function Home() {
               <Link href="/explore" className="btn-primary">Begin Your Search</Link>
             </ScrollReveal>
             <ScrollReveal className={styles.visualContent} delay={200}>
-              <div className={styles.visualPlaceholder}>
-                <div className={styles.glowCircle} />
-                <TreeDeciduous size={120} className={styles.floatingIcon} />
+              <div className={styles.miniLineageGraph}>
+                <svg className={styles.lineageConnections} viewBox="0 0 400 350" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <linearGradient id="goldGradientLineage" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#FFD700" />
+                      <stop offset="100%" stopColor="#FF9933" />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Father (Shiva) to Center */}
+                  <path d="M 80 90 C 150 90, 200 130, 200 175" className={styles.lineagePath} />
+                  {/* Mother (Parvati) to Center */}
+                  <path d="M 320 90 C 250 90, 200 130, 200 175" className={styles.lineagePath} />
+                  
+                  {/* Center to Child 1 (Ganesha) */}
+                  <path d="M 200 175 C 200 220, 150 260, 80 260" className={styles.lineagePath} style={{ animationDelay: '2s' }} />
+                  {/* Center to Child 2 (Kartikeya) */}
+                  <path d="M 200 175 C 200 220, 250 260, 320 260" className={styles.lineagePath} style={{ animationDelay: '2s' }} />
+                  
+                  <circle cx="200" cy="175" r="5" fill="#D4AF37" opacity="0.9" filter="drop-shadow(0 0 5px #FF9933)" />
+                </svg>
+
+                <div className={`${styles.lineageNode} ${styles.posShiva}`}>
+                   <div className={styles.nodeIcon}>ॐ</div>
+                   <span>Shiva</span>
+                </div>
+                <div className={`${styles.lineageNode} ${styles.posParvati}`}>
+                   <div className={styles.nodeIcon}>❀</div>
+                   <span>Parvati</span>
+                </div>
+                <div className={`${styles.lineageNode} ${styles.posGanesha}`}>
+                   <div className={styles.nodeIcon}>✨</div>
+                   <span>Ganesha</span>
+                </div>
+                <div className={`${styles.lineageNode} ${styles.posKartikeya}`}>
+                   <div className={styles.nodeIcon}>🔱</div>
+                   <span>Kartikeya</span>
+                </div>
               </div>
             </ScrollReveal>
           </div>
