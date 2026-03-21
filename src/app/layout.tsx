@@ -15,10 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <div className="cosmic-layer">
-          <div className="cosmic-nebula" />
-          <div className="bg-pattern" />
+      <body className="parchment-bg">
+        <div className="sacred-background">
+          <div className="temple-motif" />
         </div>
         <AuthProvider>
           {children}

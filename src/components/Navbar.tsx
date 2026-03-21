@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { TreeDeciduous } from 'lucide-react';
+import { TreeDeciduous, Flower2 } from 'lucide-react';
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from '../app/page.module.css';
 
@@ -12,8 +12,11 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <div className={styles.navContainer}>
          <Link href="/" className={styles.logo}>
-            <TreeDeciduous size={32} color="var(--color-primary)" />
-            <span className={styles.logoText}>Vamsha</span>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <TreeDeciduous size={32} color="var(--color-secondary)" />
+              <Flower2 size={12} color="var(--color-primary)" style={{ position: 'absolute' }} />
+            </div>
+            <span className={styles.logoText} style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-accent)' }}>वंशवृक्ष</span>
           </Link>
         <div className={styles.navLinks}>
           <Link href="/explore">Explore Trees</Link>

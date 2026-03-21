@@ -20,26 +20,28 @@ export default async function Home() {
             <div className={styles.badge}>
               <Sparkles size={16} /> Beta Release
             </div>
-            <h1 className={styles.heroTitle}>
-              Discover Your <span className={styles.gradientText}>Divine</span> & Mortal Lineage
+            <h1 className={styles.heroTitle} style={{ fontFamily: 'var(--font-display)', color: 'var(--color-accent)' }}>
+              वंशवृक्ष <br />
+              <span style={{ fontSize: '0.6em', color: 'var(--color-text-main)' }}>The Living Heritage of Lineages</span>
             </h1>
             <p className={styles.heroSubtitle}>
-              The ultimate Indian genealogy portal. Map your family tree, discover historical roots, trace the past lives of deities, and follow the parampara of saints. 
+              From gods to generations — build, explore, and preserve your lineage through the sacred parampara of India.
             </p>
             <div className={styles.heroActions}>
-              <Link href="/dashboard" className="btn-primary">
-                Start Your Tree <ArrowRight size={20} />
+              <Link href="/explore" className="btn-primary">
+                Explore Divine Lineages
               </Link>
-              <Link href="/explore" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center' }}>
-                Explore Directory
+              <Link href="/dashboard" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', borderColor: 'var(--color-secondary)' }}>
+                Create Your Family Tree
               </Link>
             </div>
           </ScrollReveal>
         </div>
         
-        <div className={styles.heroBlobs}>
-          <div className={styles.blob1}></div>
-          <div className={styles.blob2}></div>
+        <div className={styles.heroDiyas}>
+          <div className={`${styles.diya} ${styles.diya1}`}></div>
+          <div className={`${styles.diya} ${styles.diya2}`}></div>
+          <div className={`${styles.diya} ${styles.diya3}`}></div>
         </div>
       </header>
 
@@ -63,7 +65,7 @@ export default async function Home() {
       <section className={styles.featuresSection} id="features">
         <div className="container">
           <ScrollReveal className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Ancient Roots, Modern Tech</h2>
+            <h2 className={styles.sectionTitle} style={{ color: 'var(--color-accent)' }}>Bridging Heritage & Technology</h2>
             <p>Advanced tools for the modern Indian family historian.</p>
           </ScrollReveal>
           
@@ -115,14 +117,14 @@ export default async function Home() {
         <div className="container">
           <div className={styles.splitContent}>
             <ScrollReveal className={styles.textContent}>
-              <h2>Tracing the Parampara</h2>
-              <p>From the first Rishis to the modern era, the Vamsha project is dedicated to documenting every strand of Indian heritage.</p>
+              <h2 style={{ color: 'var(--color-accent)' }}>Tracing the Parampara</h2>
+              <p>From the first Rishis to the modern era, our digital archive is dedicated to preserving every strand of Indian heritage.</p>
               <ul className={styles.featureList}>
-                <li>3000+ Recorded Lineages</li>
-                <li>Gothra-based Mapping</li>
-                <li>Regional Cultural Context</li>
+                <li>3000+ Sacred Lineages</li>
+                <li>Vamsha & Gothra Tracking</li>
+                <li>Temple Archive Integration</li>
               </ul>
-              <Link href="/explore" className="btn-primary">Get Started</Link>
+              <Link href="/explore" className="btn-primary">Begin Your Search</Link>
             </ScrollReveal>
             <ScrollReveal className={styles.visualContent} delay={200}>
               <div className={styles.visualPlaceholder}>
