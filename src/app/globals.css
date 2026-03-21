@@ -165,9 +165,37 @@ button {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.6;
+}
+
+/* Subtle Rangoli / Mandala Borders */
+.border-rangoli-top {
+  position: relative;
+}
+.theme-traditional .border-rangoli-top::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='24' viewBox='0 0 80 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 24 L52 12 L40 0 L28 12 Z' fill='%23D4AF37' fill-opacity='0.2'/%3E%3Ccircle cx='40' cy='12' r='4' fill='%23D4AF37' fill-opacity='0.4'/%3E%3Cpath d='M0 24 L12 12 L0 0' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1.5' fill='none'/%3E%3Cpath d='M80 24 L68 12 L80 0' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  opacity: 0.9;
+  z-index: 5;
+}
+
+.border-rangoli-bottom {
+  position: relative;
+}
+.theme-traditional .border-rangoli-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='24' viewBox='0 0 80 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 24 L52 12 L40 0 L28 12 Z' fill='%23D4AF37' fill-opacity='0.2'/%3E%3Ccircle cx='40' cy='12' r='4' fill='%23D4AF37' fill-opacity='0.4'/%3E%3Cpath d='M0 24 L12 12 L0 0' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1.5' fill='none'/%3E%3Cpath d='M80 24 L68 12 L80 0' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  transform: rotate(180deg);
+  opacity: 0.9;
+  z-index: 5;
 }
 
 .sacred-background {
@@ -475,7 +503,12 @@ button {
 
 .section-divider::before, .section-divider::after {
   content: "";
-  height: 1px;
+  height: 2px;
   flex: 1;
-  background: linear-gradient(to right, transparent, var(--color-secondary), transparent);
+  background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.4), transparent);
+}
+
+.section-divider-icon {
+  color: var(--color-secondary);
+  font-size: 1.8rem;
 }
