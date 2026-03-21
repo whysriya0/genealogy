@@ -134,7 +134,19 @@ export default function ExplorePage() {
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                 {persons.length === 0 ? (
-                  <p style={{ color: 'var(--color-text-muted)' }}>No divine entities found matching your search.</p>
+                  <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem 0' }}>
+                    <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.5rem', fontSize: '1.1rem' }}>No divine entities found matching your search.</p>
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', gap: '0.5rem', background: 'rgba(var(--color-surface), 0.7)', padding: '1.5rem 3rem', borderRadius: 'var(--radius-lg)', border: '1px solid rgba(212, 175, 55, 0.3)', boxShadow: '0 4px 15px rgba(0,0,0,0.03)' }}>
+                      <p style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-secondary-dark)', fontWeight: 600, marginBottom: '0.5rem' }}>Suggested Lineages</p>
+                      <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
+                        <a href="/explore?search=Brahma" style={{ color: 'var(--color-primary-dark)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'all 0.3s' }}>Brahma</a>
+                        <span style={{ color: 'var(--color-text-muted)' }}>•</span>
+                        <a href="/explore?search=Vishnu" style={{ color: 'var(--color-primary-dark)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'all 0.3s' }}>Vishnu</a>
+                        <span style={{ color: 'var(--color-text-muted)' }}>•</span>
+                        <a href="/explore?search=Shiva" style={{ color: 'var(--color-primary-dark)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'all 0.3s' }}>Shiva</a>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   persons.map((person, i) => (
                     <ScrollReveal key={person.id} delay={i % 6 * 50}>

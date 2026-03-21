@@ -123,6 +123,9 @@ model Relationship {
 
   type RelationshipType
 
+  label       String?
+  isBiological Boolean? @default(true)
+  
   isCurrent Boolean? @default(true)
 
   createdAt DateTime @default(now())
