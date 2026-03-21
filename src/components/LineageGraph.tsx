@@ -27,17 +27,20 @@ const edgeTypes = {
 const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
-  dagreGraph.setGraph({ rankdir: direction, nodesep: 250, ranksep: 350, align: 'DL' });
+  // nodesep = gap between node EDGES (not centers). ranksep = gap between rows.
+  // Formula: center-to-center = nodeWidth + nodesep
+  // With nodeWidth=200 and nodesep=80 → 280px center-to-center → 80px breathing room
+  dagreGraph.setGraph({ rankdir: direction, nodesep: 80, ranksep: 180 });
 
   nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: 250, height: 120 }); // rough dimensions of EntityNode
+    // Must match actual rendered node dimensions closely to prevent overlap
+    dagreGraph.setNode(node.id, { width: 200, height: 80 });
   });
 
   edges.forEach((edge) => {
-    // Treat consort edges differently so they stay on same rank if possible
     if (edge.type === 'consort') {
-      // Not typically supported by plain dagre to keep on exact same Y, but we pass anyway
-      dagreGraph.setEdge(edge.source, edge.target, { weight: 0, minlen: 1 });
+      // weight:2 = high priority same-rank edge, minlen:0 = same rank allowed
+      dagreGraph.setEdge(edge.source, edge.target, { weight: 2, minlen: 0 });
     } else {
       dagreGraph.setEdge(edge.source, edge.target);
     }
@@ -52,8 +55,8 @@ const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
       targetPosition: direction === 'TB' ? 'top' : 'left',
       sourcePosition: direction === 'TB' ? 'bottom' : 'right',
       position: {
-        x: nodeWithPosition.x - 125, // offset by half width
-        y: nodeWithPosition.y - 60,  // offset by half height
+        x: nodeWithPosition.x - 100, // offset by half of declared width (200/2)
+        y: nodeWithPosition.y - 40,  // offset by half of declared height (80/2)
       },
     };
   });
@@ -81,14 +84,14 @@ export default function LineageGraphWrapper(props: LineageGraphProps) {
 
   if (!mounted) {
     return (
-      <div style={{ width: '100%', height: '100%', minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
+      <div style={{ width: '100%', height: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
          <div style={{ opacity: 0.5, color: 'var(--color-primary-dark)' }}>Initializing Lineage Canvas...</div>
       </div>
     );
   }
 
   return (
-    <div style={{ width: '100%', height: '100%', minHeight: '85vh', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
+    <div style={{ width: '100%', height: '85vh', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
       <ReactFlow
         nodes={props.initialNodes}
         edges={props.initialEdges}
