@@ -55,6 +55,7 @@ export default function Chatbot() {
         </button>
       )}
 
+      {isOpen && (
         <div className={styles.chatWindow}>
           <div className={styles.chatHeader}>
             <div className={styles.botInfo} style={{ fontFamily: 'var(--font-display)' }}>

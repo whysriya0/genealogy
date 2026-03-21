@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import AuthProvider from '@/components/AuthProvider';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import ThemeToggle from '@/components/ThemeToggle';
 import Chatbot from '@/components/Chatbot';
 
 export const metadata: Metadata = {
@@ -16,13 +18,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="parchment-bg">
-        <div className="sacred-background">
-          <div className="temple-motif" />
-        </div>
-        <AuthProvider>
-          {children}
-          <Chatbot />
-        </AuthProvider>
+        <ThemeProvider>
+          <div className="sacred-background">
+            <div className="temple-motif" />
+          </div>
+          <div className="cosmic-layer">
+            <div className="cosmic-nebula" />
+          </div>
+          <AuthProvider>
+            {children}
+            <Chatbot />
+            <ThemeToggle />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
