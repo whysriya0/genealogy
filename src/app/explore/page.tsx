@@ -48,11 +48,11 @@ export default function ExplorePage() {
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
       <div className="container" style={{ padding: '4rem 24px', flex: 1 }}>
-        <h1 style={{ fontSize: '3.5rem', marginBottom: '1rem', fontFamily: 'var(--font-serif)' }}>
-          Lineage Directory
+        <h1 style={{ fontSize: '4rem', marginBottom: '1rem', fontFamily: 'var(--font-display)', color: 'var(--color-accent)' }}>
+          वंश-कोश
         </h1>
         <p style={{ fontSize: '1.25rem', color: 'var(--color-text-muted)', marginBottom: '3rem', maxWidth: '800px' }}>
-          Browse public figures, historical icons, deities, and saints. Use filters to trace specific Gothras or Varnas.
+          Browse the sacred lineages of historical icons, deities, and saints. Use traditional filters to trace specific Gothras or Varnas.
         </p>
 
         {/* Search & Filter Bar */}
@@ -108,35 +108,36 @@ export default function ExplorePage() {
             ) : (
               persons.map((person, i) => (
                 <ScrollReveal key={person.id} delay={i % 6 * 50}>
-                  <div className="glass-panel" style={{ padding: '2rem', height: '100%', display: 'flex', flexDirection: 'column', transition: 'transform 0.3s ease' }}>
-                    <h3 style={{ fontSize: '1.75rem', marginBottom: '0.75rem', fontFamily: 'var(--font-serif)' }}>{person.name}</h3>
+                  <div style={{ 
+                    padding: '2.5rem 2rem', 
+                    height: '100%', 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    transition: 'all 0.3s ease',
+                    background: 'white',
+                    border: '1px solid var(--color-border)',
+                    borderRadius: 'var(--radius-md)',
+                    boxShadow: 'var(--shadow-sm)'
+                  }} className="card-heritage">
+                    <h3 style={{ fontSize: '1.75rem', marginBottom: '0.75rem', fontFamily: 'var(--font-serif)', color: 'var(--color-accent)' }}>{person.name}</h3>
                     
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
                       <span style={{ 
-                        padding: '4px 12px', borderRadius: '9999px', 
-                        backgroundColor: 'rgba(var(--color-primary), 0.1)', color: 'var(--color-primary-dark)', 
+                        padding: '4px 12px', borderRadius: '4px', 
+                        backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--color-secondary-dark)', 
                         fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.5px' 
                       }}>
                         {person.type.replace('_', ' ')}
                       </span>
-                      {person.gotra && (
-                        <span style={{ 
-                          padding: '4px 12px', borderRadius: '9999px', 
-                          backgroundColor: 'rgba(107, 92, 82, 0.1)', color: 'var(--color-text-muted)', 
-                          fontSize: '0.75rem', fontWeight: 600
-                        }}>
-                          {person.gotra}
-                        </span>
-                      )}
                     </div>
 
-                    <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', flex: 1, marginBottom: '1.5rem', lineHeight: 1.5 }}>
+                    <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', flex: 1, marginBottom: '2rem', lineHeight: 1.6 }}>
                       {person.description ? 
                         (person.description.length > 120 ? person.description.substring(0, 120) + '...' : person.description) 
-                        : "No detailed historical context available for this entity yet."}
+                        : "No recorded historical context available."}
                     </p>
                     
-                    <Link href={`/tree/${person.id}`} className="btn-secondary" style={{ width: '100%', textAlign: 'center', justifyContent: 'center', display: 'inline-flex', alignItems: 'center' }} prefetch={false}>
+                    <Link href={`/tree/${person.id}`} className="btn-primary" style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }} prefetch={false}>
                       View Lineage
                     </Link>
                   </div>

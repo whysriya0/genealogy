@@ -9,13 +9,14 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--shadow-lg), 0 0 15px rgba(212, 175, 55, 0.4);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid var(--color-secondary);
 }
 
 .chatButton:hover {
@@ -23,12 +24,16 @@
 }
 
 .chatWindow {
-  width: 360px;
-  height: 500px;
+  width: 380px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--color-bg);
+  border: 2px solid var(--color-secondary);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
 }
 
 @keyframes slideIn {
@@ -38,11 +43,12 @@
 
 .chatHeader {
   padding: 1rem 1.5rem;
-  background: var(--color-primary);
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-secondary);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--color-secondary);
 }
 
 .botInfo {
@@ -84,14 +90,26 @@
 .user .messageContent {
   background: var(--color-primary);
   color: white;
-  border-bottom-right-radius: 2px;
+  border-bottom-right-radius: 4px;
+  box-shadow: var(--shadow-sm);
 }
 
 .bot .messageContent {
-  background: rgba(var(--color-bg), 0.5);
+  background: white;
   border: 1px solid var(--color-border);
   color: var(--color-text-main);
-  border-bottom-left-radius: 2px;
+  border-bottom-left-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.bot .messageContent::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20 Z' fill='%23D4AF37' fill-opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+  pointer-events: none;
 }
 
 .inputArea {
@@ -105,9 +123,9 @@
 .inputArea input {
   flex: 1;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  background: white;
   color: var(--color-text-main);
   font-size: 0.875rem;
 }

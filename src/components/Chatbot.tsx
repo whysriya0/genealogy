@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, Flower2 } from 'lucide-react';
 import styles from './Chatbot.module.css';
 
 export default function Chatbot() {
@@ -51,15 +51,14 @@ export default function Chatbot() {
           className={`${styles.chatButton} animate-fade-in`} 
           onClick={() => setIsOpen(true)}
         >
-          <MessageCircle size={28} />
+          <Flower2 size={32} />
         </button>
       )}
 
-      {isOpen && (
-        <div className={`${styles.chatWindow} glass-panel`}>
+        <div className={styles.chatWindow}>
           <div className={styles.chatHeader}>
-            <div className={styles.botInfo}>
-              <Bot size={20} />
+            <div className={styles.botInfo} style={{ fontFamily: 'var(--font-display)' }}>
+              <Flower2 size={24} />
               <span>Vamsha Assistant</span>
             </div>
             <button onClick={() => setIsOpen(false)}><X size={20} /></button>
