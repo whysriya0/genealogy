@@ -45,6 +45,9 @@ export async function POST(req: NextRequest) {
         subCaste: data.subCaste,
         gotra: data.gotra,
         description: data.description,
+        instagram: data.instagram,
+        facebook: data.facebook,
+        linkedin: data.linkedin,
       }
     });
     return NextResponse.json(newPerson, { status: 201 });

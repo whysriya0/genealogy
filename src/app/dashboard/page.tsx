@@ -14,7 +14,10 @@ export default function Dashboard() {
     gender: 'MALE',
     caste: '',
     gotra: '',
-    description: ''
+    description: '',
+    instagram: '',
+    facebook: '',
+    linkedin: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
@@ -53,7 +56,7 @@ export default function Dashboard() {
 
       if (res.ok) {
         setMessage('Successfully added to the directory!');
-        setFormData({ name: '', type: 'PERSONAL', gender: 'MALE', caste: '', gotra: '', description: '' });
+        setFormData({ name: '', type: 'PERSONAL', gender: 'MALE', caste: '', gotra: '', description: '', instagram: '', facebook: '', linkedin: '' });
       } else {
         setMessage('Failed to add person. Please try again.');
       }
@@ -137,6 +140,30 @@ export default function Dashboard() {
                   <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Gotra (Optional)</label>
                   <input 
                     type="text" name="gotra" value={formData.gotra} onChange={handleChange} placeholder="e.g. Kashyapa, Bharadwaja..."
+                    style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-main)' }} 
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Instagram</label>
+                  <input 
+                    type="text" name="instagram" value={formData.instagram} onChange={handleChange} placeholder="@username"
+                    style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-main)' }} 
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Facebook</label>
+                  <input 
+                    type="text" name="facebook" value={formData.facebook} onChange={handleChange} placeholder="Profile URL"
+                    style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-main)' }} 
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>LinkedIn</label>
+                  <input 
+                    type="text" name="linkedin" value={formData.linkedin} onChange={handleChange} placeholder="Profile URL"
                     style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-main)' }} 
                   />
                 </div>

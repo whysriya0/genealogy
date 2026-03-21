@@ -93,6 +93,11 @@ model Person {
   // Biography / Additional Info
   description String?
 
+  // Social Links
+  instagram   String?
+  facebook    String?
+  linkedin    String?
+
   relationshipsAsSubject Relationship[] @relation("SubjectRelation")
   relationshipsAsObject  Relationship[] @relation("ObjectRelation")
 
