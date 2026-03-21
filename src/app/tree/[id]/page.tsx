@@ -12,15 +12,18 @@ export const dynamic = 'force-dynamic';
 function getLayoutedElements(nodes: any[], edges: any[], direction = 'TB') {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
-  dagreGraph.setGraph({ rankdir: direction, nodesep: 150, ranksep: 200, align: 'DL' });
+  // nodesep = gap between node EDGES (not centers). ranksep = vertical gap between rows.
+  dagreGraph.setGraph({ rankdir: direction, nodesep: 80, ranksep: 180 });
 
   nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: 250, height: 120 });
+    // Must match actual rendered EntityNode dimensions to prevent overlap
+    dagreGraph.setNode(node.id, { width: 200, height: 80 });
   });
 
   edges.forEach((edge) => {
     if (edge.type === 'consort') {
-      dagreGraph.setEdge(edge.source, edge.target, { weight: 0, minlen: 1 });
+      // weight:2 = high priority, minlen:0 = same rank as spouse
+      dagreGraph.setEdge(edge.source, edge.target, { weight: 2, minlen: 0 });
     } else {
       dagreGraph.setEdge(edge.source, edge.target);
     }
@@ -35,8 +38,8 @@ function getLayoutedElements(nodes: any[], edges: any[], direction = 'TB') {
       targetPosition: direction === 'TB' ? 'top' : 'left',
       sourcePosition: direction === 'TB' ? 'bottom' : 'right',
       position: {
-        x: nodeWithPosition.x - 125,
-        y: nodeWithPosition.y - 60,
+        x: nodeWithPosition.x - 100, // half of 200
+        y: nodeWithPosition.y - 40,  // half of 80
       },
     };
   });
