@@ -13,6 +13,7 @@ import '@xyflow/react/dist/style.css';
 import dagre from 'dagre';
 import EntityNode from './EntityNode';
 import { EmergenceEdge, ConsortEdge } from './LineageEdges';
+import { useRouter } from 'next/navigation';
 
 const nodeTypes = {
   entity: EntityNode,
@@ -66,6 +67,13 @@ interface LineageGraphProps {
 }
 
 export default function LineageGraphWrapper(props: LineageGraphProps) {
+  const router = useRouter();
+
+  const onNodeClick = React.useCallback((event: any, node: any) => {
+    // Navigate to the focus node to explore its lineage deeper
+    router.push(`/tree/${node.id}`);
+  }, [router]);
+
   return (
     <div style={{ width: '100%', height: '100%', minHeight: '600px', background: 'var(--color-bg)', borderRadius: 'var(--radius-lg)' }}>
       <ReactFlow
@@ -73,6 +81,7 @@ export default function LineageGraphWrapper(props: LineageGraphProps) {
         edges={props.initialEdges}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
+        onNodeClick={onNodeClick}
         fitView
         attributionPosition="bottom-right"
         className="touchdevice-flow"

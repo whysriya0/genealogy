@@ -6,9 +6,9 @@ import styles from './page.module.css';
 import { prisma } from '@/lib/prisma';
 
 export default async function Home() {
-  const vishnu = await prisma.person.findFirst({ where: { name: "Lord Vishnu" } });
-  const rama = await prisma.person.findFirst({ where: { name: "Lord Sri Rama" } });
-  const vashistha = await prisma.person.findFirst({ where: { name: "Guru Vashistha" } });
+  const vishnu = await prisma.person.findFirst({ where: { name: { contains: "Vishnu" } } });
+  const rama = await prisma.person.findFirst({ where: { name: { contains: "Rama" } } });
+  const vashistha = await prisma.person.findFirst({ where: { name: { contains: "Vashistha" } } });
 
   return (
     <main className={styles.main}>
