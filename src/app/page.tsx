@@ -45,8 +45,8 @@ export default async function Home() {
 
           <ScrollReveal className={`${styles.heroVisual} animate-fade-in`} delay={200}>
             <div className={styles.centerpiecePlaceholder}>
-              {/* Note: The image blends beautifully with a dark background or container behind it */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: '50%', background: 'radial-gradient(circle, rgba(10, 14, 26, 0.8) 0%, transparent 70%)', zIndex: -1, pointerEvents: 'none' }}></div>
+              {/* Note: A warm, deep brown backdrop matches the parchment much better than navy black, avoiding heavy shadow look */}
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: '50%', background: 'radial-gradient(circle, rgba(120, 50, 10, 0.7) 0%, transparent 60%)', zIndex: -1, pointerEvents: 'none' }}></div>
               <img src="/banyan_tree_centerpiece.png" alt="Sacred Banyan Tree Illustration" className={styles.centerpieceImage} />
             </div>
           </ScrollReveal>
