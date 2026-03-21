@@ -107,8 +107,8 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
   if (childRels.length >= 3) {
     const allSameLabel = childRels.every(r => (r as any).label === (childRels[0] as any).label);
     const groupLabel = allSameLabel && (childRels[0] as any).label
-      ? (childRels[0] as any).label === 'Mind-born Son' ? 'Manasaputras (Mind-born Sons)' : (childRels[0] as any).label + 's'
-      : `${childRels.length} Children`;
+      ? (childRels[0] as any).label === 'Mind-born Son' ? 'Manasaputras' : 'Children'
+      : 'Children';
 
     const groupId = `group-${person.id}-children`;
     rawNodes.push({
@@ -167,7 +167,7 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
   const avatarRels = person.relationshipsAsSubject.filter(r => r.type === "PAST_LIFE_OF");
   if (avatarRels.length > 0) {
     const groupId = `group-${person.id}-avatars`;
-    const groupLabel = avatarRels.length === 10 ? 'Dashavatara (Ten Avatars)' : `${avatarRels.length} Avatars`;
+    const groupLabel = avatarRels.length === 10 ? 'Dashavatara' : 'Avatars';
     rawNodes.push({ id: groupId, type: 'groupLabel', data: { label: groupLabel, size: 'label' } });
     rawEdges.push({
       id: `e-${person.id}-${groupId}`,
