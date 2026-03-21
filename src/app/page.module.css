@@ -433,6 +433,8 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  width: 100px;
+  margin-left: -50px;
   animation: pulseNode 4s ease-in-out infinite;
 }
 
@@ -468,10 +470,10 @@
   50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(255, 153, 51, 0.5)); }
 }
 
-.posShiva { top: 30px; left: 10%; animation-delay: 0s; }
-.posParvati { top: 30px; right: 10%; animation-delay: 1s; }
-.posGanesha { bottom: 30px; left: 10%; animation-delay: 2s; }
-.posKartikeya { bottom: 30px; right: 10%; animation-delay: 3s; }
+.posShiva { top: 20px; left: 100px; animation-delay: 0s; }
+.posParvati { top: 20px; left: 300px; animation-delay: 0s; }
+.posGanesha { top: 220px; left: 100px; animation-delay: 1.5s; }
+.posKartikeya { top: 220px; left: 300px; animation-delay: 1.5s; }
 
 .footer {
   padding: 6rem 0;

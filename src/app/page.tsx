@@ -146,17 +146,17 @@ export default async function Home() {
                     </linearGradient>
                   </defs>
                   
-                  {/* Father (Shiva) to Center */}
-                  <path d="M 80 90 C 150 90, 200 130, 200 175" className={styles.lineagePath} />
-                  {/* Mother (Parvati) to Center */}
-                  <path d="M 320 90 C 250 90, 200 130, 200 175" className={styles.lineagePath} />
+                  {/* Marriage line between Shiva and Parvati */}
+                  <path d="M 140 52 L 260 52" className={styles.lineagePath} />
                   
-                  {/* Center to Child 1 (Ganesha) */}
-                  <path d="M 200 175 C 200 220, 150 260, 80 260" className={styles.lineagePath} style={{ animationDelay: '2s' }} />
-                  {/* Center to Child 2 (Kartikeya) */}
-                  <path d="M 200 175 C 200 220, 250 260, 320 260" className={styles.lineagePath} style={{ animationDelay: '2s' }} />
+                  {/* Marriage Node Dot */}
+                  <circle cx="200" cy="52" r="5" fill="#D4AF37" opacity="0.9" filter="drop-shadow(0 0 5px #FF9933)" />
+
+                  {/* Path downwards to Child 1 (Ganesha) */}
+                  <path d="M 200 52 L 200 125 Q 200 140, 185 140 L 115 140 Q 100 140, 100 155 L 100 210" className={styles.lineagePath} style={{ animationDelay: '1s' }} />
                   
-                  <circle cx="200" cy="175" r="5" fill="#D4AF37" opacity="0.9" filter="drop-shadow(0 0 5px #FF9933)" />
+                  {/* Path downwards to Child 2 (Kartikeya) */}
+                  <path d="M 200 52 L 200 125 Q 200 140, 215 140 L 285 140 Q 300 140, 300 155 L 300 210" className={styles.lineagePath} style={{ animationDelay: '1s' }} />
                 </svg>
 
                 <div className={`${styles.lineageNode} ${styles.posShiva}`}>
