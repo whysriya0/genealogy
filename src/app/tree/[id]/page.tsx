@@ -124,22 +124,23 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-bg)' }}>
       <Navbar />
-      <div className="container" style={{ padding: '2rem 24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-          <Link href="/explore" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-primary)', fontWeight: 600 }} prefetch={false}>
-            <ArrowLeft size={20} /> Back to Directory
-          </Link>
+      <div style={{ padding: '0 2%', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 0', borderBottom: '1px solid rgba(212, 175, 55, 0.1)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <Link href="/explore" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-primary)', fontWeight: 600 }} prefetch={false}>
+              <ArrowLeft size={18} /> Back
+            </Link>
+            <div>
+              <h1 style={{ fontSize: '1.75rem', fontFamily: 'var(--font-display)', color: 'var(--color-accent)', margin: 0, lineHeight: 1 }}>
+                वंश-परम्परा
+              </h1>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', margin: 0, marginTop: '2px' }}>Tracing the sacred lineage of <strong>{person.name}</strong></p>
+            </div>
+          </div>
           <ShareButton />
         </div>
-        
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '3rem', fontFamily: 'var(--font-display)', color: 'var(--color-accent)', marginBottom: '0.5rem' }}>
-            वंश-परम्परा
-          </h1>
-          <p style={{ color: 'var(--color-text-muted)', fontSize: '1.25rem' }}>Tracing the sacred lineage of <strong>{person.name}</strong></p>
-        </div>
  
-        <div style={{ flex: 1, minHeight: '70vh', border: '1px solid rgba(212, 175, 55, 0.3)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', position: 'relative' }}>
+        <div style={{ flex: 1, minHeight: '85vh', width: '100%', position: 'relative', marginTop: '1rem', border: '1px solid rgba(212, 175, 55, 0.15)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0', overflow: 'hidden' }}>
            <LineageGraphWrapper initialNodes={nodes} initialEdges={edges} />
         </div>
       </div>
