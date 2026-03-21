@@ -139,7 +139,7 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
           <p style={{ color: 'var(--color-text-muted)', fontSize: '1.25rem' }}>Tracing the sacred lineage of <strong>{person.name}</strong></p>
         </div>
  
-        <div style={{ flex: 1, border: '1px solid rgba(212, 175, 55, 0.3)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', position: 'relative' }}>
+        <div style={{ flex: 1, minHeight: '70vh', border: '1px solid rgba(212, 175, 55, 0.3)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', position: 'relative' }}>
            <LineageGraphWrapper initialNodes={nodes} initialEdges={edges} />
         </div>
       </div>
