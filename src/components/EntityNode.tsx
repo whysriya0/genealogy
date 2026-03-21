@@ -19,25 +19,26 @@ export default function EntityNode({ data }: { data: any }) {
     <div 
       className="entity-node"
       style={{
-        padding: '12px 20px',
-        borderRadius: 'var(--radius-full)',
+        padding: '10px 14px',
+        borderRadius: '16px',
         background: bgClass,
         border: borderStyle,
         boxShadow: glowClass || '0 4px 10px rgba(0,0,0,0.05)',
-        minWidth: '150px',
+        width: '160px',
         textAlign: 'center',
         position: 'relative',
         cursor: 'pointer',
-        backdropFilter: 'blur(8px)'
+        backdropFilter: 'blur(8px)',
+        overflow: 'hidden',
       }}
     >
       <Handle type="target" position={Position.Top} id="top" style={{ opacity: 0 }} />
       <Handle type="target" position={Position.Left} id="left" style={{ opacity: 0 }} />
       
-      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-primary-dark)', marginBottom: '4px', fontWeight: 600 }}>
+      <div style={{ fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-primary-dark)', marginBottom: '2px', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
         {data.role || data.type}
       </div>
-      <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-main)' }}>
+      <div style={{ fontFamily: 'var(--font-serif)', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
         {data.name}
       </div>
 

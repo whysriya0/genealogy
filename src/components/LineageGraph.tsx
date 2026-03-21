@@ -27,14 +27,12 @@ const edgeTypes = {
 const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
-  // nodesep = gap between node EDGES (not centers). ranksep = gap between rows.
-  // Formula: center-to-center = nodeWidth + nodesep
-  // With nodeWidth=200 and nodesep=80 → 280px center-to-center → 80px breathing room
-  dagreGraph.setGraph({ rankdir: direction, nodesep: 80, ranksep: 180 });
+  // nodesep = horizontal gap between node edges. ranksep = vertical gap between rows.
+  dagreGraph.setGraph({ rankdir: direction, nodesep: 60, ranksep: 120 });
 
   nodes.forEach((node) => {
-    // Must match actual rendered node dimensions closely to prevent overlap
-    dagreGraph.setNode(node.id, { width: 200, height: 80 });
+    // Fixed width 160px + padding = ~180px rendered. Height ~60px.
+    dagreGraph.setNode(node.id, { width: 180, height: 60 });
   });
 
   edges.forEach((edge) => {
@@ -55,8 +53,8 @@ const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
       targetPosition: direction === 'TB' ? 'top' : 'left',
       sourcePosition: direction === 'TB' ? 'bottom' : 'right',
       position: {
-        x: nodeWithPosition.x - 100, // offset by half of declared width (200/2)
-        y: nodeWithPosition.y - 40,  // offset by half of declared height (80/2)
+        x: nodeWithPosition.x - 90,
+        y: nodeWithPosition.y - 30,
       },
     };
   });
@@ -99,6 +97,7 @@ export default function LineageGraphWrapper(props: LineageGraphProps) {
         edgeTypes={edgeTypes}
         onNodeClick={onNodeClick}
         fitView
+        fitViewOptions={{ padding: 0.3 }}
         attributionPosition="bottom-right"
         className="touchdevice-flow"
         nodesDraggable={false}

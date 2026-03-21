@@ -12,12 +12,12 @@ export const dynamic = 'force-dynamic';
 function getLayoutedElements(nodes: any[], edges: any[], direction = 'TB') {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
-  // nodesep = gap between node EDGES (not centers). ranksep = vertical gap between rows.
-  dagreGraph.setGraph({ rankdir: direction, nodesep: 80, ranksep: 180 });
+  // nodesep = horizontal gap between node edges. ranksep = vertical gap between rows.
+  dagreGraph.setGraph({ rankdir: direction, nodesep: 60, ranksep: 120 });
 
   nodes.forEach((node) => {
-    // Must match actual rendered EntityNode dimensions to prevent overlap
-    dagreGraph.setNode(node.id, { width: 200, height: 80 });
+    // Fixed width 160px + 10px padding each side = ~180px rendered. Height ~60px.
+    dagreGraph.setNode(node.id, { width: 180, height: 60 });
   });
 
   edges.forEach((edge) => {
@@ -38,8 +38,8 @@ function getLayoutedElements(nodes: any[], edges: any[], direction = 'TB') {
       targetPosition: direction === 'TB' ? 'top' : 'left',
       sourcePosition: direction === 'TB' ? 'bottom' : 'right',
       position: {
-        x: nodeWithPosition.x - 100, // half of 200
-        y: nodeWithPosition.y - 40,  // half of 80
+        x: nodeWithPosition.x - 90,  // half of 180
+        y: nodeWithPosition.y - 30,  // half of 60
       },
     };
   });
