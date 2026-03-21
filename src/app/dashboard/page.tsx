@@ -22,21 +22,7 @@ export default function Dashboard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
 
-  if (status === "loading") {
-    return <div style={{ padding: '4rem', textAlign: 'center' }}>Loading...</div>;
-  }
-
-  if (status === "unauthenticated") {
-    return (
-      <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Navbar />
-        <div className="container" style={{ padding: '6rem 24px', textAlign: 'center' }}>
-          <h1>Please Sign In</h1>
-          <p style={{ marginTop: '1rem', color: 'var(--color-text-muted)' }}>You must be signed in to manage your family tree.</p>
-        </div>
-      </main>
-    );
-  }
+  const isAuth = status === "authenticated";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -92,7 +78,22 @@ export default function Dashboard() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ position: 'relative' }}>
+              {!isAuth && (
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+                  background: 'rgba(var(--color-surface), 0.7)', backdropFilter: 'blur(4px)',
+                  zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                  borderRadius: 'var(--radius-md)'
+                }}>
+                  <div style={{ background: 'var(--color-bg)', padding: '2rem', borderRadius: 'var(--radius-lg)', textAlign: 'center', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--color-border)' }}>
+                    <h3 style={{ marginBottom: '1rem', fontSize: '1.5rem', color: 'var(--color-primary-dark)' }}>Authentication Required</h3>
+                    <p style={{ marginBottom: '1.5rem', color: 'var(--color-text-muted)' }}>You must be signed in to add or edit entities in the registry.</p>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', opacity: isAuth ? 1 : 0.4, pointerEvents: isAuth ? 'auto' : 'none' }}>
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Full Name</label>
                 <input 
@@ -181,6 +182,7 @@ export default function Dashboard() {
                 {isSubmitting ? 'Saving...' : 'Add Entity to Database'}
               </button>
             </form>
+            </div>
           </div>
         </div>
       </div>
