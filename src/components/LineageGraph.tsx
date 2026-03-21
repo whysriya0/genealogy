@@ -1,65 +1,50 @@
 "use client";
 
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ReactFlow,
-  useNodesState,
-  useEdgesState,
   Controls,
   Background,
   Panel,
+  Handle,
+  Position,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import dagre from 'dagre';
 import EntityNode from './EntityNode';
 import { EmergenceEdge, ConsortEdge } from './LineageEdges';
 import { useRouter } from 'next/navigation';
 
+// Group label node — a subtle text banner for "Manasaputras (Mind-born Sons)" etc.
+function GroupLabelNode({ data }: { data: any }) {
+  return (
+    <div style={{
+      padding: '4px 18px',
+      borderRadius: '20px',
+      background: 'rgba(212, 175, 55, 0.08)',
+      border: '1px dashed rgba(212, 175, 55, 0.3)',
+      textAlign: 'center',
+      fontSize: '0.7rem',
+      fontWeight: 600,
+      color: '#8B6914',
+      letterSpacing: '0.5px',
+      textTransform: 'uppercase',
+      whiteSpace: 'nowrap',
+    }}>
+      <Handle type="target" position={Position.Top} id="top" style={{ opacity: 0 }} />
+      {data.label}
+      <Handle type="source" position={Position.Bottom} id="bottom" style={{ opacity: 0 }} />
+    </div>
+  );
+}
+
 const nodeTypes = {
   entity: EntityNode,
+  groupLabel: GroupLabelNode,
 };
 
 const edgeTypes = {
   emergence: EmergenceEdge,
   consort: ConsortEdge,
-};
-
-const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
-  const dagreGraph = new dagre.graphlib.Graph();
-  dagreGraph.setDefaultEdgeLabel(() => ({}));
-  // nodesep = horizontal gap between node edges. ranksep = vertical gap between rows.
-  dagreGraph.setGraph({ rankdir: direction, nodesep: 60, ranksep: 120 });
-
-  nodes.forEach((node) => {
-    // Fixed width 160px + padding = ~180px rendered. Height ~60px.
-    dagreGraph.setNode(node.id, { width: 180, height: 60 });
-  });
-
-  edges.forEach((edge) => {
-    if (edge.type === 'consort') {
-      // weight:2 = high priority same-rank edge, minlen:0 = same rank allowed
-      dagreGraph.setEdge(edge.source, edge.target, { weight: 2, minlen: 0 });
-    } else {
-      dagreGraph.setEdge(edge.source, edge.target);
-    }
-  });
-
-  dagre.layout(dagreGraph);
-
-  const newNodes = nodes.map((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-    return {
-      ...node,
-      targetPosition: direction === 'TB' ? 'top' : 'left',
-      sourcePosition: direction === 'TB' ? 'bottom' : 'right',
-      position: {
-        x: nodeWithPosition.x - 90,
-        y: nodeWithPosition.y - 30,
-      },
-    };
-  });
-
-  return { nodes: newNodes, edges };
 };
 
 interface LineageGraphProps {
@@ -76,20 +61,20 @@ export default function LineageGraphWrapper(props: LineageGraphProps) {
   }, []);
 
   const onNodeClick = React.useCallback((event: any, node: any) => {
-    // Navigate to the focus node to explore its lineage deeper
+    if (node.type === 'groupLabel') return; // Don't navigate on label clicks
     router.push(`/tree/${node.id}`);
   }, [router]);
 
   if (!mounted) {
     return (
-      <div style={{ width: '100%', height: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
-         <div style={{ opacity: 0.5, color: 'var(--color-primary-dark)' }}>Initializing Lineage Canvas...</div>
+      <div style={{ width: '100%', height: '88vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg)' }}>
+        <div style={{ opacity: 0.4, color: 'var(--color-primary-dark)', fontSize: '0.9rem' }}>Loading lineage...</div>
       </div>
     );
   }
 
   return (
-    <div style={{ width: '100%', height: '85vh', background: 'radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%), var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0' }}>
+    <div style={{ width: '100%', height: '88vh', background: 'radial-gradient(ellipse at 50% 20%, rgba(212, 175, 55, 0.06) 0%, transparent 50%), var(--color-bg)' }}>
       <ReactFlow
         nodes={props.initialNodes}
         edges={props.initialEdges}
@@ -97,22 +82,21 @@ export default function LineageGraphWrapper(props: LineageGraphProps) {
         edgeTypes={edgeTypes}
         onNodeClick={onNodeClick}
         fitView
-        fitViewOptions={{ padding: 0.3 }}
+        fitViewOptions={{ padding: 0.15 }}
         attributionPosition="bottom-right"
-        className="touchdevice-flow"
         nodesDraggable={false}
-        minZoom={0.2}
-        maxZoom={4}
+        minZoom={0.15}
+        maxZoom={3}
+        defaultEdgeOptions={{ style: { stroke: 'rgba(180, 160, 120, 0.4)', strokeWidth: 1.5 } }}
       >
-        <Background gap={32} size={1} color="rgba(212, 175, 55, 0.15)" />
-        <Controls showInteractive={false} style={{ display: 'flex', flexDirection: 'column' }} />
-        
-        <Panel position="top-right" style={{ background: 'rgba(255,255,255,0.65)', padding: '12px 16px', borderRadius: '12px', backdropFilter: 'blur(8px)', border: '1px solid rgba(212, 175, 55, 0.15)', boxShadow: '0 8px 32px rgba(0,0,0,0.04)', margin: '16px' }}>
-          <h3 style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-primary-dark)', marginBottom: '8px', opacity: 0.8 }}>Legend</h3>
-          <ul style={{ listStyle: 'none', fontSize: '0.8rem', color: 'var(--color-text-main)', margin: 0, padding: 0 }}>
-            <li style={{ marginBottom: '6px', display: 'flex', alignItems: 'center' }}><span style={{ width: '18px', height: '2px', background: '#b1b1b7', marginRight: '8px' }}></span> Biological</li>
-            <li style={{ marginBottom: '6px', display: 'flex', alignItems: 'center' }}><span style={{ width: '18px', height: '0', borderTop: '2px dashed var(--color-primary)', marginRight: '8px' }}></span> Emergence</li>
-            <li style={{ display: 'flex', alignItems: 'center' }}><span style={{ width: '18px', height: '2px', background: '#E91E63', marginRight: '8px', filter: 'drop-shadow(0 0 2px rgba(233, 30, 99, 0.3))' }}></span> Consort</li>
+        <Background gap={40} size={0.5} color="rgba(212, 175, 55, 0.1)" />
+        <Controls showInteractive={false} />
+
+        <Panel position="top-right" style={{ background: 'rgba(255,255,255,0.5)', padding: '8px 12px', borderRadius: '10px', backdropFilter: 'blur(8px)', border: '1px solid rgba(212, 175, 55, 0.1)', margin: '8px', opacity: 0.8 }}>
+          <ul style={{ listStyle: 'none', fontSize: '0.7rem', color: 'var(--color-text-muted)', margin: 0, padding: 0 }}>
+            <li style={{ marginBottom: '4px', display: 'flex', alignItems: 'center' }}><span style={{ width: '14px', height: '1.5px', background: 'rgba(180,160,120,0.5)', marginRight: '6px' }}></span>Biological</li>
+            <li style={{ marginBottom: '4px', display: 'flex', alignItems: 'center' }}><span style={{ width: '14px', height: '0', borderTop: '1.5px dashed #B8860B', marginRight: '6px' }}></span>Emergence</li>
+            <li style={{ display: 'flex', alignItems: 'center' }}><span style={{ width: '14px', height: '1.5px', background: '#C2185B', marginRight: '6px' }}></span>Consort</li>
           </ul>
         </Panel>
       </ReactFlow>
