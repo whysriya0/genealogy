@@ -67,18 +67,89 @@
 
 .hero {
   flex: 1;
-  display: flex;
-  align-items: center;
-  padding: 8rem 0 6rem;
   position: relative;
   overflow: hidden;
+  padding: 8rem 0 6rem;
 }
 
-.heroContent {
-  max-width: 800px;
+.heroLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
   position: relative;
   z-index: 10;
 }
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+}
+
+.heroVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.centerpiecePlaceholder {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centerpieceImage {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5));
+  animation: gentleFloat 8s ease-in-out infinite;
+  object-fit: contain;
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.lightRays {
+  position: absolute;
+  top: -50%; left: 50%; width: 200%; height: 200%;
+  background: conic-gradient(from 0deg at 50% 50%, 
+    rgba(212, 175, 55, 0.15) 0deg, transparent 15deg, rgba(212, 175, 55, 0.08) 30deg, transparent 45deg,
+    rgba(212, 175, 55, 0.15) 60deg, transparent 75deg, rgba(212, 175, 55, 0.08) 90deg, transparent 105deg,
+    rgba(212, 175, 55, 0.15) 120deg, transparent 135deg);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+  animation: rotateRays 60s linear infinite;
+  transform-origin: 50% 50%;
+  mask-image: radial-gradient(circle at center, black, transparent 65%);
+}
+
+@keyframes rotateRays {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+.mandalaOverlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.1'%3E%3Ccircle cx='60' cy='60' r='50'/%3E%3Ccircle cx='60' cy='60' r='40'/%3E%3Cpath d='M60 10 L60 110 M10 60 L110 60 M25 25 L95 95 M25 95 L95 25'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  background-position: center center;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+/* Base styles untouched below */
 
 .badge {
   display: inline-flex;
@@ -120,26 +191,7 @@
   gap: 1rem;
 }
 
-.diya {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: radial-gradient(circle at 50% 50%, #FFD700 0%, #FF8C00 100%);
-  border-radius: 50% 50% 50% 50% / 0% 100% 0% 100%;
-  transform: rotate(-45deg);
-  filter: blur(2px) drop-shadow(0 0 10px #FFD700);
-  opacity: 0.6;
-  animation: floatDiya 6s ease-in-out infinite;
-}
 
-@keyframes floatDiya {
-  0%, 100% { transform: translate(0, 0) rotate(-45deg); opacity: 0.4; }
-  50% { transform: translate(10px, -20px) rotate(-40deg); opacity: 0.7; }
-}
-
-.diya1 { top: 20%; right: 15%; animation-delay: 0s; }
-.diya2 { top: 40%; right: 25%; animation-delay: 2s; }
-.diya3 { top: 15%; right: 35%; animation-delay: 4s; }
 
 .featuresSection {
   padding: 6rem 0;
@@ -329,6 +381,16 @@
   top: 0; left: 0; width: 100%; height: 20px;
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='20' viewBox='0 0 40 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L40 20 L0 20 Z' fill='%23D4AF37' fill-opacity='0.1'/%3E%3C/svg%3E");
   background-size: 40px 20px;
+}
+
+@media (max-width: 900px) {
+  .heroLayout {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .heroActions {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {

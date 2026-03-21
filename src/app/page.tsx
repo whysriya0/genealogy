@@ -15,7 +15,10 @@ export default async function Home() {
       <Navbar />
 
       <header className={styles.hero}>
-        <div className="container">
+        <div className={styles.lightRays}></div>
+        <div className={styles.mandalaOverlay}></div>
+        
+        <div className={`container ${styles.heroLayout}`}>
           <ScrollReveal className={`${styles.heroContent} animate-fade-in`}>
             <div className={styles.badge}>
               <Sparkles size={16} /> Beta Release
@@ -36,12 +39,14 @@ export default async function Home() {
               </Link>
             </div>
           </ScrollReveal>
-        </div>
-        
-        <div className={styles.heroDiyas}>
-          <div className={`${styles.diya} ${styles.diya1}`}></div>
-          <div className={`${styles.diya} ${styles.diya2}`}></div>
-          <div className={`${styles.diya} ${styles.diya3}`}></div>
+
+          <ScrollReveal className={`${styles.heroVisual} animate-fade-in`} delay={200}>
+            <div className={styles.centerpiecePlaceholder}>
+              {/* Note: The image blends beautifully with a dark background or container behind it */}
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: '50%', background: 'radial-gradient(circle, rgba(10, 14, 26, 0.8) 0%, transparent 70%)', zIndex: -1, pointerEvents: 'none' }}></div>
+              <img src="/banyan_tree_centerpiece.png" alt="Sacred Banyan Tree Illustration" className={styles.centerpieceImage} />
+            </div>
+          </ScrollReveal>
         </div>
       </header>
 
