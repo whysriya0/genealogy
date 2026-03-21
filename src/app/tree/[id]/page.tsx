@@ -163,6 +163,45 @@ export default async function TreePage({ params }: { params: Promise<{ id: strin
     });
   });
 
+  // Avatars / Incarnations (PAST_LIFE_OF)  —  Subject = Source deity, Object = Avatar
+  const avatarRels = person.relationshipsAsSubject.filter(r => r.type === "PAST_LIFE_OF");
+  if (avatarRels.length > 0) {
+    const groupId = `group-${person.id}-avatars`;
+    const groupLabel = avatarRels.length === 10 ? 'Dashavatara (Ten Avatars)' : `${avatarRels.length} Avatars`;
+    rawNodes.push({ id: groupId, type: 'groupLabel', data: { label: groupLabel, size: 'label' } });
+    rawEdges.push({
+      id: `e-${person.id}-${groupId}`,
+      source: person.id,
+      target: groupId,
+      type: 'emergence',
+      data: { label: 'Incarnations' },
+    });
+    avatarRels.forEach(rel => {
+      rawNodes.push({ id: rel.object.id, type: 'entity', data: { ...sanitizePerson(rel.object), size: 'small' } });
+      rawEdges.push({
+        id: `e-${groupId}-${rel.object.id}`,
+        source: groupId,
+        target: rel.object.id,
+        type: 'emergence',
+        data: { label: 'Avatar' },
+      });
+    });
+  }
+
+  // Also if this entity IS an avatar (someone's past life), show the source deity
+  const sourceDeityRels = person.relationshipsAsObject.filter(r => r.type === "PAST_LIFE_OF");
+  sourceDeityRels.forEach(rel => {
+    rawNodes.push({ id: rel.subject.id, type: 'entity', data: { ...sanitizePerson(rel.subject), size: 'large' } });
+    rawEdges.push({
+      id: `e-${rel.subject.id}-${person.id}-avatar`,
+      source: rel.subject.id,
+      target: person.id,
+      type: 'emergence',
+      data: { label: 'Avatar' },
+      animated: true,
+    });
+  });
+
   // De-duplicate nodes
   const uniqueNodesMap = new Map();
   rawNodes.forEach(n => uniqueNodesMap.set(n.id, n));
