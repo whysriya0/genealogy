@@ -11,8 +11,8 @@
   --font-display: 'Cinzel', serif;
 
   /* Default Theme: Traditional */
-  --color-bg: #FFFFF0;
-  --color-surface: #FDF9F3;
+  --color-bg: #F5E9D8; 
+  --color-surface: #FAF2E3; 
   --color-primary: #FF9933;
   --color-primary-dark: #E67E22;
   --color-secondary: #D4AF37;
@@ -156,7 +156,7 @@ button {
 
 /* Background Utilities */
 .parchment-bg {
-  background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, var(--color-bg) 60%, rgba(212, 175, 55, 0.05) 100%);
+  background: linear-gradient(to bottom, #FAF2E3 0%, #F5E9D8 40%, #E6D0B3 100%);
   transition: background 0.5s ease;
   position: relative;
   min-height: 100vh;
